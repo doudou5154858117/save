@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+.gradle/
+build/
+app/build/
+cropper/build/
+calendar/build/
+*.iml
+local.properties
+.DS_Store?
