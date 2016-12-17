@@ -1,0 +1,66 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "com.ximai.savingsmore"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        debug{
+            signingConfig  signingConfigs.debug //使用自定义的签名配置
+
+        }
+
+
+
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+    }
+
+    //自定义的签名配置
+    signingConfigs{
+
+        debug {
+            storeFile file("src/main/keystore/talentmore.jks")
+            storePassword "talentmore"
+            keyAlias "talentmore"
+            keyPassword "talentmore"
+        }
+
+        myConfig{
+            storeFile file("src/main/keystore/talentmore.jks")
+            storePassword "talentmore"
+            keyAlias "talentmore"
+            keyPassword "talentmore"
+        }
+
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile files('libs/android-async-http-1.4.8.jar')
+    compile files('libs/gson-2.3.1.jar')
+    compile files('libs/universal-image-loader-1.9.3.jar')
+    compile 'org.apache.httpcomponents:httpcore:4.4.2'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile files('libs/AMap_Search_V3.6.0_20161111.jar')
+    compile files('libs/Amap_2DMap_V2.9.2_20161026.jar')
+    compile files('libs/Android_Map3D_SDK_V4.1.2_20161104.jar')
+    compile files('libs/AMap_Location_V3.1.0_20161027.jar')
+    compile project(':sliding_menu')
+    compile project(':cropper')
+    compile project(':easeUI')
+}

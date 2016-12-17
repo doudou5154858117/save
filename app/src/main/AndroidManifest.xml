@@ -1,0 +1,217 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ximai.savingsmore">
+
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+
+
+    <!--允许程序打开网络套接字-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许程序设置内置sd卡的写权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序访问WiFi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!--用于访问网络，网络定位需要上网-->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
+
+    <!-- Required -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
+    <application
+        android:name=".save.common.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <!-- 设置环信应用的appkey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="talentmore#savingsmore" />
+        <!--gundamzaku#tantanwen   penkrshopex#penkr-->
+
+
+        <!-- 声明sdk所需的service SDK核心功能-->
+        <service android:name="com.easemob.chat.EMChatService" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="df7e64b2b45799b57fa5d1619d472276"></meta-data>
+
+        <activity
+            android:name=".save.activity.LoginActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".save.activity.GuidePageActivity"
+
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".save.activity.SplashActivity"
+            android:screenOrientation="portrait"
+
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".save.activity.NoLoginMainactivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.OneStepRegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.TwoStepRegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.ThereStepRegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.ForgetPasswordActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.ResetPasswordActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity
+            android:name=".save.activity.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity
+            android:name=".save.activity.MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.GoodDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.BusinessMessageActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.HotSalesGoods"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.TakeMeActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.CollectCenterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.PersonalMyMessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity
+            android:name=".save.activity.GoodsCommentActiviyt"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.IssueCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity
+            android:name=".save.activity.CropImageActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.BusinessMyCenterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity
+            android:name=".save.activity.IssuGoodActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.FourStepRegisterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.AddGoodsAcitivyt"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.CommentSuccessActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.BusinessListActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.MyCommentCenterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.SettingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.AboutWeActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.LowStateActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.ComplainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.MessageCenterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".save.activity.ChatActivity"
+            android:screenOrientation="portrait"></activity>
+
+    </application>
+
+</manifest>
