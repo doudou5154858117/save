@@ -37,7 +37,8 @@ public class MyEaseConversationList extends ListView {
     protected int primarySize;
     protected int secondarySize;
     protected float timeSize;
-    private List<IMUser> imUsers=new ArrayList<IMUser>();
+    private List<IMUserList> imUserLists = new ArrayList<IMUserList>();
+    private List<IMUser> imUsers = new ArrayList<IMUser>();
 
 
     protected final int MSG_REFRESH_ADAPTER_DATA = 0;
@@ -72,9 +73,19 @@ public class MyEaseConversationList extends ListView {
 
     }
 
-    public void init(List<EMConversation> conversationList){
+    public void init(List<EMConversation> conversationList, String result) {
+        Map<String, EMConversation> conversations = EMChatManager.getInstance().getAllConversations();
+        List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
+        synchronized (conversations) {
+            for (EMConversation conversation : conversations.values()) {
+                if (conversation.getAllMessages().size() != 0) {
+                    sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                    getUserByIM(conversation.getUserName());
+                }
+            }
+        }
         this.conversationList = conversationList;
-        adapter = new MyEaseConversationAdapater(context, 0, conversationList,imUsers);
+        adapter = new MyEaseConversationAdapater(context, 0, conversationList);
         adapter.setPrimaryColor(primaryColor);
         adapter.setPrimarySize(primarySize);
         adapter.setSecondaryColor(secondaryColor);
@@ -106,8 +117,8 @@ public class MyEaseConversationList extends ListView {
      * 获取所有会话
      *
      * @param context
-     * @return
-    +    */
+     * @return +
+     */
     private List<EMConversation> loadConversationsWithRecentChat() {
         // 获取所有会话，包括陌生人
         Map<String, EMConversation> conversations = EMChatManager.getInstance().getAllConversations();
@@ -123,7 +134,6 @@ public class MyEaseConversationList extends ListView {
             for (EMConversation conversation : conversations.values()) {
                 if (conversation.getAllMessages().size() != 0) {
                     sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
-                    getUserByIM(conversation.getUserName());
                 }
             }
         }
@@ -163,7 +173,7 @@ public class MyEaseConversationList extends ListView {
     }
 
     public EMConversation getItem(int position) {
-        return (EMConversation)adapter.getItem(position);
+        return (EMConversation) adapter.getItem(position);
     }
 
     public void refresh() {
@@ -182,8 +192,12 @@ public class MyEaseConversationList extends ListView {
             public void onResponse(int statusCode, Header[] headers, byte[] responseBody) {
                 String result = new String(responseBody);
                 IMUserList imUserList = GsonUtils.fromJson(result, IMUserList.class);
-                if (imUserList.IsSuccess.equals("true") && imUserList.MainData.size() > 0) {
-                   imUsers.add(imUserList.MainData.get(0));
+                if (imUserList.IsSuccess.equals("true") && imUserList.MainData.size() > 0 ) {
+                    imUserLists.add(imUserList);
+                }
+                if (imUserLists.size() == EMChatManager.getInstance().getAllConversations().size()) {
+                    adapter.setImUsers(imUserLists);
+                    refresh();
                 }
             }
         });

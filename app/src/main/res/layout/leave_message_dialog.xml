@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/change_icon_popupwindow_item"
-        android:text="电话" />
+        android:text="@string/camera" />
 
     <Button
         android:id="@+id/btnAlbum"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/change_icon_popupwindow_item"
-        android:text="留言" />
+        android:text="@string/album" />
 
     <ImageView
         android:layout_width="match_parent"

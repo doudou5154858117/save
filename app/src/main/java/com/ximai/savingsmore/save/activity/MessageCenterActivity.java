@@ -28,6 +28,9 @@ public class MessageCenterActivity extends BaseActivity {
         result = getIntent().getStringExtra("list");
         fragmentManager = getSupportFragmentManager();
         myEaseConversationListFragment = new MyEaseConversationListFragment();
+        Bundle intent=new Bundle();
+        intent.putString("list",result);
+        myEaseConversationListFragment.setArguments(intent);
         fragmentManager.beginTransaction().add(R.id.message_list, myEaseConversationListFragment).show(myEaseConversationListFragment).commit();
         initListener(myEaseConversationListFragment);
     }

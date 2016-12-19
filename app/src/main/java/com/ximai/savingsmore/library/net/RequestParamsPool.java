@@ -774,7 +774,7 @@ public class RequestParamsPool {
         JSONObject object1 = new JSONObject();
         try {
             JSONArray array = new JSONArray();
-                array.put(userName);
+            array.put(userName);
             object1.put("SecurityStamp", LoginUser.getInstance().userInfo.SecurityStamp);
             object.put("SecurityStampParameter", object1);
             object.put("IMUserNameList", array);
@@ -784,6 +784,32 @@ public class RequestParamsPool {
         try {
             stringEntity = new StringEntity(object.toString());
         } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return stringEntity;
+    }
+
+    //发表留言
+    public static StringEntity sendMessage(String Id, String name, String city, String number, String email, String qq, String content) {
+        StringEntity stringEntity = null;
+        JSONObject object = new JSONObject();
+        JSONObject object1 = new JSONObject();
+        try {
+            object1.put("SecurityStamp", LoginUser.getInstance().userInfo.SecurityStamp);
+            object.put("SecurityStampParameter", object1);
+            object.put("ReceiverId", Id);
+            object.put("Name", name);
+            object.put("City", city);
+            object.put("PhoneNumber", number);
+            object.put("Email", email);
+            object.put("QQOrWeChat", qq);
+            object.put("Content", content);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            stringEntity = new StringEntity(object.toString(), MyAsyncHttpResponseHandler.DEFAULT_CHARSET);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return stringEntity;

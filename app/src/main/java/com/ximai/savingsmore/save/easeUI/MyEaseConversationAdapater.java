@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import com.easemob.easeui.utils.EaseCommonUtils;
 import com.easemob.easeui.utils.EaseSmileUtils;
 import com.easemob.easeui.utils.EaseUserUtils;
 import com.easemob.util.DateUtils;
+import com.nostra13.universalimageloader.utils.L;
 import com.ximai.savingsmore.R;
 import com.ximai.savingsmore.library.cache.MyImageLoader;
 import com.ximai.savingsmore.library.net.MyAsyncHttpResponseHandler;
@@ -60,16 +62,21 @@ public class MyEaseConversationAdapater extends ArrayAdapter<EMConversation> {
     private Context context;
     private List<String> name = new ArrayList<String>();
     private List<String> avatar = new ArrayList<String>();
-    private List<IMUser> imUsers;
+    private List<IMUser> imUsers = new ArrayList<IMUser>();
+    private String result;
+    private List<IMUserList> imUserLists = new ArrayList<IMUserList>();
 
     public MyEaseConversationAdapater(Context context, int resource,
-                                      List<EMConversation> objects, List<IMUser> imUsers) {
+                                      List<EMConversation> objects) {
         super(context, resource, objects);
-        this.imUsers = imUsers;
         conversationList = objects;
         this.context = context;
         copyConversationList = new ArrayList<EMConversation>();
         copyConversationList.addAll(objects);
+    }
+
+    public void setImUsers(List<IMUserList> imUserLists) {
+        this.imUserLists = imUserLists;
     }
 
     @Override
@@ -125,9 +132,13 @@ public class MyEaseConversationAdapater extends ArrayAdapter<EMConversation> {
             EMChatRoom room = EMChatManager.getInstance().getChatRoom(username);
             holder.name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
         } else {
-            if (imUsers.size() >= position&&imUsers.size()>0) {
-                MyImageLoader.displayDefaultImage(URLText.img_url + imUsers.get(position).PhotoPath, holder.avatar);
-                holder.name.setText(imUsers.get(position).ShowName);
+            if (imUserLists.size() > position && imUserLists.size() > 0) {
+                for (int i = 0; i < imUserLists.size(); i++) {
+                    if (imUserLists.get(i).MainData.get(0).IMUserName.equals(username)) {
+                        MyImageLoader.displayDefaultImage(URLText.img_url + imUserLists.get(position).MainData.get(0).PhotoPath, holder.avatar);
+                        holder.name.setText(imUserLists.get(position).MainData.get(0).ShowName);
+                    }
+                }
             }
 //            EaseUserUtils.setUserAvatar(getContext(), username, holder.avatar);
 //            EaseUserUtils.setUserNick(username, holder.name);

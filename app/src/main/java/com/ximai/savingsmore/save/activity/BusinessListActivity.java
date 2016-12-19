@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ximai.savingsmore.R;
 import com.ximai.savingsmore.library.cache.MyImageLoader;
@@ -23,6 +24,7 @@ import com.ximai.savingsmore.save.common.BaseActivity;
 import com.ximai.savingsmore.save.modle.Business;
 import com.ximai.savingsmore.save.modle.BusinessList;
 import com.ximai.savingsmore.save.modle.Images;
+import com.ximai.savingsmore.save.modle.LoginUser;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -132,9 +134,15 @@ public class BusinessListActivity extends BaseActivity {
             businessViewHodel.into_shop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(LoginUser.getInstance().isLogin()){
                     Intent intent = new Intent(BusinessListActivity.this, BusinessMessageActivity.class);
                     intent.putExtra("id", listBusiness.get(position).UserId);
-                    startActivity(intent);
+                    startActivity(intent);}
+                    else {
+                        Toast.makeText(BusinessListActivity.this, "您还没有登录", Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(BusinessListActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                    }
                 }
             });
             imagesList = listBusiness.get(position).Images;

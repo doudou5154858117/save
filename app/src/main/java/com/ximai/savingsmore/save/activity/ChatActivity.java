@@ -50,7 +50,6 @@ public class ChatActivity extends BaseActivity {
                     args.putString("url",imUserList.MainData.get(0).PhotoPath);
                     myEaseChatFragment.setArguments(args);
                     getSupportFragmentManager().beginTransaction().add(R.id.message, myEaseChatFragment).commit();
-
                 }
             }
         });

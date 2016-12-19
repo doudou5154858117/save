@@ -8,17 +8,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.easemob.easeui.EaseConstant;
 import com.ximai.savingsmore.R;
 import com.ximai.savingsmore.library.cache.MyImageLoader;
 import com.ximai.savingsmore.library.net.MyAsyncHttpResponseHandler;
@@ -27,6 +31,7 @@ import com.ximai.savingsmore.library.net.URLText;
 import com.ximai.savingsmore.library.net.WebRequestHelper;
 import com.ximai.savingsmore.library.toolbox.GsonUtils;
 import com.ximai.savingsmore.library.toolbox.LogUtils;
+import com.ximai.savingsmore.library.toolbox.PopupWindowFromBottomUtil;
 import com.ximai.savingsmore.library.view.CircleFlowIndicator;
 import com.ximai.savingsmore.library.view.FlowView;
 import com.ximai.savingsmore.save.common.BaseActivity;
@@ -56,6 +61,9 @@ public class GoodDetailsActivity extends Activity implements View.OnClickListene
     private Boolean isFavourite;
     private RelativeLayout comment;
     private LinearLayout comment_score;
+    private ImageView send_message;
+    private TextView servise;
+    private PopupWindow setIconWindow;
 
 
     @Override
@@ -92,6 +100,10 @@ public class GoodDetailsActivity extends Activity implements View.OnClickListene
         score = (TextView) findViewById(R.id.score);
         comment = (RelativeLayout) findViewById(R.id.comment);
         comment_score = (LinearLayout) findViewById(R.id.comment_score);
+        send_message= (ImageView) findViewById(R.id.send_message);
+        servise= (TextView) findViewById(R.id.servise);
+        service.setOnClickListener(this);
+        send_message.setOnClickListener(this);
         comment_score.setOnClickListener(this);
         comment.setOnClickListener(this);
         business_message = (LinearLayout) findViewById(R.id.business_message);
@@ -347,7 +359,45 @@ public class GoodDetailsActivity extends Activity implements View.OnClickListene
                 comment.putExtra("score", goodDetial.Score);
                 startActivity(comment);
                 break;
+            case R.id.send_message:
+                Intent send=new Intent(GoodDetailsActivity.this,ChatActivity.class);
+                send.putExtra(EaseConstant.EXTRA_USER_ID,goodDetial.User.IMUserName);
+                startActivity(send);
+                break;
+            case R.id.servise:
+                showSetIconWindow();
+                break;
+            case R.id.btnCancel:
+                setIconWindow.dismiss();
+                break;
+            case R.id.btnCamera:
+                Intent call= new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +"58366991"));
+                startActivity(call);
+                setIconWindow.dismiss();
+                break;
+            case R.id.btnAlbum:
+                Intent leave=new Intent(GoodDetailsActivity.this,LeaveMessageActivity.class);
+                leave.putExtra("Id",goodDetial.User.Id);
+                startActivity(leave);
+                setIconWindow.dismiss();
+                break;
         }
+    }
+
+    private void showSetIconWindow() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.view_set_icon_popwindow, null);
+        View parentView = LayoutInflater.from(this).inflate(R.layout.good_details_activity, null);
+
+
+        setIconWindow = PopupWindowFromBottomUtil.showWindow(contentView, parentView, this);
+
+        Button btnCancel = (Button) contentView.findViewById(R.id.btnCancel);
+        Button btnCamera = (Button) contentView.findViewById(R.id.btnCamera);
+        Button btnAlbum = (Button) contentView.findViewById(R.id.btnAlbum);
+
+        btnCancel.setOnClickListener(this);
+        btnCamera.setOnClickListener(this);
+        btnAlbum.setOnClickListener(this);
     }
 
     // 收藏商品

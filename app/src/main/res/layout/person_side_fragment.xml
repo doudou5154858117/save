@@ -19,8 +19,8 @@
 
             <com.ximai.savingsmore.library.view.RoundImageView
                 android:id="@+id/user_head"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
 
             <TextView
                 android:id="@+id/name"

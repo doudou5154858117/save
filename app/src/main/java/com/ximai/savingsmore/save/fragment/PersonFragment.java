@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +13,30 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMConversation;
 import com.ximai.savingsmore.R;
 import com.ximai.savingsmore.library.cache.MyImageLoader;
+import com.ximai.savingsmore.library.net.MyAsyncHttpResponseHandler;
+import com.ximai.savingsmore.library.net.RequestParamsPool;
 import com.ximai.savingsmore.library.net.URLText;
+import com.ximai.savingsmore.library.net.WebRequestHelper;
 import com.ximai.savingsmore.library.view.RoundImageView;
 import com.ximai.savingsmore.save.activity.CollectCenterActivity;
 import com.ximai.savingsmore.save.activity.HotSalesGoods;
+import com.ximai.savingsmore.save.activity.MessageCenterActivity;
 import com.ximai.savingsmore.save.activity.PersonalMyMessageActivity;
 import com.ximai.savingsmore.save.activity.SearchActivity;
 import com.ximai.savingsmore.save.activity.SettingActivity;
 import com.ximai.savingsmore.save.modle.LoginUser;
 import com.ximai.savingsmore.save.modle.MyUserInfo;
 import com.ximai.savingsmore.save.modle.MyUserInfoUtils;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by caojian on 16/11/21.
@@ -33,7 +47,8 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout hot_sales;
     private TextView name;
     private ImageView setting;
-    private RelativeLayout search, collect;
+    private RelativeLayout search, collect, message_center;
+    private String result;
 
     @Nullable
     @Override
@@ -43,12 +58,14 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
         name = (TextView) view.findViewById(R.id.name);
         search = (RelativeLayout) view.findViewById(R.id.search);
         collect = (RelativeLayout) view.findViewById(R.id.collect);
+        message_center = (RelativeLayout) view.findViewById(R.id.message_center);
         collect.setOnClickListener(this);
         search.setOnClickListener(this);
         hot_sales = (RelativeLayout) view.findViewById(R.id.hot_sales);
-        setting= (ImageView) view.findViewById(R.id.setting);
+        setting = (ImageView) view.findViewById(R.id.setting);
         setting.setOnClickListener(this);
         hot_sales.setOnClickListener(this);
+        message_center.setOnClickListener(this);
         head.setOnClickListener(this);
         if (null != MyUserInfoUtils.getInstance().myUserInfo) {
             MyImageLoader.displayDefaultImage(URLText.img_url + MyUserInfoUtils.getInstance().myUserInfo.PhotoPath, head);
@@ -91,7 +108,14 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
                 Intent intent3 = new Intent(getActivity(), PersonalMyMessageActivity.class);
                 startActivity(intent3);
                 break;
+            case R.id.message_center:
+                Intent intent6 = new Intent(getActivity(), MessageCenterActivity.class);
+                intent6.putExtra("list", result);
+                startActivity(intent6);
+                break;
 
         }
     }
+
+
 }

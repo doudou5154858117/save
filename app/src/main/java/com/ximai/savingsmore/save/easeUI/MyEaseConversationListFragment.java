@@ -40,11 +40,13 @@ public class MyEaseConversationListFragment extends EaseBaseFragment {
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
     protected MyEaseConversationList conversationListView;
     protected FrameLayout errorItemContainer;
+    String result;
 
     protected boolean isConflict;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        result=getArguments().getString("list");
         return inflater.inflate(com.easemob.easeui.R.layout.ease_fragment_conversation_list, container, false);
     }
 
@@ -71,7 +73,7 @@ public class MyEaseConversationListFragment extends EaseBaseFragment {
     @Override
     protected void setUpView() {
         conversationList.addAll(loadConversationList());
-        conversationListView.init(conversationList);
+        conversationListView.init(conversationList,result);
 
         if (listItemClickListener != null) {
             conversationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

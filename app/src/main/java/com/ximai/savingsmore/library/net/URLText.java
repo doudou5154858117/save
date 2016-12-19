@@ -67,6 +67,8 @@ public interface URLText {
     public static final String BUSINESS_LIST = baseUrl + "User/QuerySellerList";
     //得到环信
     public static final String USERBYIM = baseUrl + "User/QueryUserByIM";
+    //发表留言
+    public static final String SEND_MESSAGE=baseUrl+"Message/SendMessage";
 
 
 }

@@ -58,6 +58,7 @@ public class BusinessFragment extends Fragment implements View.OnClickListener {
     //private List<IMUser> imUsers=new ArrayList<IMUser>();
     private String result;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class BusinessFragment extends Fragment implements View.OnClickListener {
         myCenter = (RelativeLayout) view.findViewById(R.id.my_center);
         comment_center = (RelativeLayout) view.findViewById(R.id.comment_center);
         setting = (ImageView) view.findViewById(R.id.setting);
-        message_center= (RelativeLayout) view.findViewById(R.id.message_center);
+        message_center = (RelativeLayout) view.findViewById(R.id.message_center);
         message_center.setOnClickListener(this);
         setting.setOnClickListener(this);
         head.setOnClickListener(this);
@@ -81,7 +82,6 @@ public class BusinessFragment extends Fragment implements View.OnClickListener {
         myCenter.setOnClickListener(this);
         fabu = (RelativeLayout) view.findViewById(R.id.fabu_cuxiao);
         fabu.setOnClickListener(this);
-        loadConversationList();
         return view;
     }
 
@@ -135,53 +135,11 @@ public class BusinessFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.message_center:
                 Intent intent6 = new Intent(getActivity(), MessageCenterActivity.class);
-                if(null!=result&&!TextUtils.isEmpty(result)) {
-                    intent6.putExtra("list", result);
-                    startActivity(intent6);
-                }
+                intent6.putExtra("list", result);
+                startActivity(intent6);
                 break;
         }
     }
-    private void getUserByIM(String userName) {
-        WebRequestHelper.json_post(getActivity(), URLText.USERBYIM, RequestParamsPool.getUserByIM(userName), new MyAsyncHttpResponseHandler(getActivity()) {
-            @Override
-            public void onResponse(int statusCode, Header[] headers, byte[] responseBody) {
-                result = new String(responseBody);
-//                IMUserList imUserList = GsonUtils.fromJson(result, IMUserList.class);
-//                if (imUserList.IsSuccess.equals("true") && imUserList.MainData.size() > 0) {
-//                    imUsers.add(imUserList.MainData.get(0));
-//                }
-            }
-        });
-    }
 
-    protected void loadConversationList() {
-        // 获取所有会话，包括陌生人
-        Hashtable<String, EMConversation> conversations = EMChatManager.getInstance().getAllConversations();
 
-        // 过滤掉messages size为0的conversation
-        /**
-         * 如果在排序过程中有新消息收到，lastMsgTime会发生变化
-         * 影响排序过程，Collection.sort会产生异常
-         * 保证Conversation在Sort过程中最后一条消息的时间不变
-         * 避免并发问题
-         */
-        List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
-        synchronized (conversations) {
-            for (EMConversation conversation : conversations.values()) {
-                if (conversation.getAllMessages().size() != 0) {
-                    //if(conversation.getType() != EMConversationType.ChatRoom){
-                    sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
-                    getUserByIM(conversation.getUserName());
-                    //}
-                }
-            }
-        }
-        try {
-            // Internal is TimSort algorithm, has bug
-           // sortConversationByLastChatTime(sortList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

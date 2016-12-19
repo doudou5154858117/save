@@ -118,8 +118,8 @@ public class PersonalMyMessageActivity extends BaseActivity implements View.OnCl
     }
 
     private void showSetIconWindow() {
-        View contentView = LayoutInflater.from(this).inflate(R.layout.view_set_icon_popwindow, null);
-        View parentView = LayoutInflater.from(this).inflate(R.layout.issue_comment_activity, null);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.leave_message_dialog, null);
+        View parentView = LayoutInflater.from(this).inflate(R.layout.personal_mymessage_activity, null);
 
 
         setIconWindow = PopupWindowFromBottomUtil.showWindow(contentView, parentView, this);
