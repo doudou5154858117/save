@@ -19,7 +19,7 @@
         ></FrameLayout>
 
 
-    <com.easemob.easeui.widget.EaseConversationList
+    <com.ximai.savingsmore.save.easeUI.MyEaseConversationList
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

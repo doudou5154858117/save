@@ -17,6 +17,7 @@ import com.ximai.savingsmore.save.easeUI.MyEaseConversationListFragment;
 public class MessageCenterActivity extends BaseActivity {
     private FragmentManager fragmentManager;
     private MyEaseConversationListFragment myEaseConversationListFragment;
+    private String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MessageCenterActivity extends BaseActivity {
         setContentView(R.layout.message_center_activity);
         setCenterTitle("消息中心");
         setLeftBackMenuVisibility(MessageCenterActivity.this, "");
+        result = getIntent().getStringExtra("list");
         fragmentManager = getSupportFragmentManager();
         myEaseConversationListFragment = new MyEaseConversationListFragment();
         fragmentManager.beginTransaction().add(R.id.message_list, myEaseConversationListFragment).show(myEaseConversationListFragment).commit();

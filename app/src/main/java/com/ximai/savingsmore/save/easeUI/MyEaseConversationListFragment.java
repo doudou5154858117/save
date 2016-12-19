@@ -38,7 +38,7 @@ public class MyEaseConversationListFragment extends EaseBaseFragment {
     protected ImageButton clearSearch;
     protected boolean hidden;
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
-    protected EaseConversationList conversationListView;
+    protected MyEaseConversationList conversationListView;
     protected FrameLayout errorItemContainer;
 
     protected boolean isConflict;
@@ -60,7 +60,7 @@ public class MyEaseConversationListFragment extends EaseBaseFragment {
     protected void initView() {
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         //会话列表控件
-        conversationListView = (EaseConversationList) getView().findViewById(com.easemob.easeui.R.id.list);
+        conversationListView = (MyEaseConversationList) getView().findViewById(com.easemob.easeui.R.id.list);
         // 搜索框
         query = (EditText) getView().findViewById(com.easemob.easeui.R.id.query);
         // 搜索框中清除button

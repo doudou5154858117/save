@@ -93,6 +93,7 @@ public class MyEaseChatFragment extends EaseBaseFragment implements EMEventListe
     static final int ITEM_TAKE_PICTURE = 1;
     static final int ITEM_PICTURE = 2;
     static final int ITEM_LOCATION = 3;
+    private String url;
 
     protected int[] itemStrings = { com.easemob.easeui.R.string.attach_take_pic, com.easemob.easeui.R.string.attach_picture, com.easemob.easeui.R.string.attach_location };
     protected int[] itemdrawables = { com.easemob.easeui.R.drawable.penkr_chat_camera, com.easemob.easeui.R.drawable.penkr_chat_photo,
@@ -115,6 +116,8 @@ public class MyEaseChatFragment extends EaseBaseFragment implements EMEventListe
         chatType = fragmentArgs.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
         // 会话人或群组id
         toChatUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
+
+        url=fragmentArgs.getString("url");
 
         super.onActivityCreated(savedInstanceState);
     }
@@ -269,7 +272,7 @@ public class MyEaseChatFragment extends EaseBaseFragment implements EMEventListe
 
     protected void onMessageListInit(){
         messageList.init(toChatUsername, chatType, chatFragmentListener != null ?
-                chatFragmentListener.onSetCustomChatRowProvider() : null);
+                chatFragmentListener.onSetCustomChatRowProvider() : null,url);
         //设置list item里的控件的点击事件
         setListItemClickListener();
 

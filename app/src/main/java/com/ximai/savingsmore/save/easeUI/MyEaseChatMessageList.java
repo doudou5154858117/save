@@ -32,6 +32,7 @@ public class MyEaseChatMessageList  extends RelativeLayout {
     protected boolean showAvatar;
     protected Drawable myBubbleBg;
     protected Drawable otherBuddleBg;
+    private  String url;
 
     public MyEaseChatMessageList(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);
@@ -61,12 +62,13 @@ public class MyEaseChatMessageList  extends RelativeLayout {
      * @param chatType
      * @param customChatRowProvider
      */
-    public void init(String toChatUsername, int chatType, EaseCustomChatRowProvider customChatRowProvider) {
+    public void init(String toChatUsername, int chatType, EaseCustomChatRowProvider customChatRowProvider,String url) {
+        this.url=url;
         this.chatType = chatType;
         this.toChatUsername = toChatUsername;
 
         conversation = EMChatManager.getInstance().getConversation(toChatUsername);
-        messageAdapter = new MyEaseMessageAdapter(context, toChatUsername, chatType, listView);
+        messageAdapter = new MyEaseMessageAdapter(context, toChatUsername, chatType, listView,url);
         messageAdapter.setShowAvatar(showAvatar);
         messageAdapter.setShowUserNick(showUserNick);
         messageAdapter.setMyBubbleBg(myBubbleBg);

@@ -33,11 +33,11 @@ public class ChatActivity extends BaseActivity {
         setLeftBackMenuVisibility(ChatActivity.this, "");
         UserName = getIntent().getStringExtra(EaseConstant.EXTRA_USER_ID);
         listName.add(UserName);
-        getUserByIM(listName);
+        getUserByIM(UserName);
     }
 
-    private void getUserByIM(List<String> listName) {
-        WebRequestHelper.json_post(ChatActivity.this, URLText.USERBYIM, RequestParamsPool.getUserByIM(listName), new MyAsyncHttpResponseHandler(ChatActivity.this) {
+    private void getUserByIM(String userName) {
+        WebRequestHelper.json_post(ChatActivity.this, URLText.USERBYIM, RequestParamsPool.getUserByIM(userName), new MyAsyncHttpResponseHandler(ChatActivity.this) {
             @Override
             public void onResponse(int statusCode, Header[] headers, byte[] responseBody) {
                 String result=new String(responseBody);
@@ -46,7 +46,8 @@ public class ChatActivity extends BaseActivity {
                     setCenterTitle(imUserList.MainData.get(0).ShowName);
                     MyEaseChatFragment myEaseChatFragment=new MyEaseChatFragment();
                     Bundle args = new Bundle();
-                    args.putString(EaseConstant.EXTRA_USER_ID, imUserList.MainData.get(0).Id);
+                    args.putString(EaseConstant.EXTRA_USER_ID, UserName);
+                    args.putString("url",imUserList.MainData.get(0).PhotoPath);
                     myEaseChatFragment.setArguments(args);
                     getSupportFragmentManager().beginTransaction().add(R.id.message, myEaseChatFragment).commit();
 

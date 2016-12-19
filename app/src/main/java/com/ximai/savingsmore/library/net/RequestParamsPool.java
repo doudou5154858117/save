@@ -768,15 +768,13 @@ public class RequestParamsPool {
     }
 
     //根据环信的到用户信息
-    public static StringEntity getUserByIM(List<String> userName) {
+    public static StringEntity getUserByIM(String userName) {
         StringEntity stringEntity = null;
         JSONObject object = new JSONObject();
         JSONObject object1 = new JSONObject();
         try {
             JSONArray array = new JSONArray();
-            for (int i = 0; i < userName.size(); i++) {
-                array.put(userName.get(i));
-            }
+                array.put(userName);
             object1.put("SecurityStamp", LoginUser.getInstance().userInfo.SecurityStamp);
             object.put("SecurityStampParameter", object1);
             object.put("IMUserNameList", array);

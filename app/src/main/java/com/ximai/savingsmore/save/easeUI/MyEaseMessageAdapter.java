@@ -76,12 +76,14 @@ public class MyEaseMessageAdapter extends BaseAdapter {
     private Drawable otherBuddleBg;
 
     private ListView listView;
+    private  String url;
 
-    public MyEaseMessageAdapter(Context context, String username, int chatType, ListView listView) {
+    public MyEaseMessageAdapter(Context context, String username, int chatType, ListView listView,String url) {
         this.context = context;
         this.listView = listView;
         toChatUsername = username;
         this.conversation = EMChatManager.getInstance().getConversation(username);
+        this.url=url;
     }
 
     Handler handler = new Handler() {
@@ -270,6 +272,8 @@ public class MyEaseMessageAdapter extends BaseAdapter {
                 String myavatar = MyUserInfoUtils.getInstance().myUserInfo.PhotoPath;
                 MyImageLoader.displayDefaultImage(URLText.img_url+ MyUserInfoUtils.getInstance().myUserInfo.PhotoPath,header);
             } else {
+
+                MyImageLoader.displayDefaultImage(URLText.img_url+url,header);
 //                User fromuser = getUserInfo(message.getFrom());
 //                if (null != fromuser) {
 //                    MyImageLoader.displayRoundCornerImage(fromuser.avatar_url, header,8, true);
